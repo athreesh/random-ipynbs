@@ -85,3 +85,95 @@ Or interactively:
 brev port-forward your-workspace-name
 # Then enter 53936 for both remote and local ports when prompted
 ```
+
+## Enterprise Deployment Considerations
+
+### Security and Access Control
+- Use appropriate RBAC (Role-Based Access Control) in Kubernetes
+- Secure API endpoints with authentication
+- Consider network policies for pod-to-pod communication
+- Use secrets management for sensitive information
+
+### Resource Management
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 Resource Management Tips                     │
+│                                                             │
+│  ┌─────────────────────┐      ┌─────────────────────────┐   │
+│  │ GPU Resources       │      │ Memory Resources        │   │
+│  │ - Set GPU limits   │      │ - Monitor RAM usage     │   │
+│  │ - Enable MIG       │      │ - Set memory limits     │   │
+│  │ - Monitor usage    │      │ - Configure swap        │   │
+│  └─────────────────────┘      └─────────────────────────┘   │
+│                                                             │
+│  ┌─────────────────────┐      ┌─────────────────────────┐   │
+│  │ Network Resources   │      │ Storage Resources       │   │
+│  │ - Set QoS policies │      │ - Use persistent volumes│   │
+│  │ - Configure ingress│      │ - Monitor disk usage    │   │
+│  │ - Set up monitoring│      │ - Set up backups       │   │
+│  └─────────────────────┘      └─────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Monitoring and Logging
+- Set up Prometheus for metrics collection
+- Use Grafana for visualization
+- Configure logging with ELK stack or similar
+- Monitor GPU utilization and memory usage
+
+### High Availability
+- Configure pod anti-affinity rules
+- Set up proper liveness and readiness probes
+- Implement proper backup strategies
+- Consider multi-zone deployment
+
+### Cost Optimization
+- Use GPU auto-scaling based on demand
+- Implement proper resource quotas
+- Monitor and optimize GPU utilization
+- Consider spot instances for non-critical workloads
+
+## Troubleshooting Guide
+
+Common issues and their solutions:
+
+1. **GPU Not Detected**
+   - Check NVIDIA drivers are installed
+   - Verify GPU is properly allocated in Kubernetes
+   - Check container runtime configuration
+
+2. **Memory Issues**
+   - Increase system swap space
+   - Adjust KV cache offloading parameters
+   - Monitor and adjust resource limits
+
+3. **Performance Issues**
+   - Check GPU utilization
+   - Monitor network latency
+   - Verify proper configuration of vLLM parameters
+
+4. **API Connection Issues**
+   - Verify port forwarding setup
+   - Check network policies
+   - Ensure proper service configuration
+
+## Support and Resources
+
+- [vLLM Documentation](https://vllm.readthedocs.io/)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [NVIDIA GPU Documentation](https://docs.nvidia.com/datacenter/cloud-native/)
+- [Brev.dev Documentation](https://docs.brev.dev/)
+
+## Production Checklist
+
+Before deploying to production:
+
+- [ ] Security measures implemented
+- [ ] Resource limits configured
+- [ ] Monitoring setup complete
+- [ ] Backup strategy in place
+- [ ] High availability configured
+- [ ] Load testing performed
+- [ ] Documentation updated
+- [ ] Rollback plan prepared
